@@ -1,16 +1,14 @@
-import { utils, view, Component, Events, Store } from '@storefront/core';
+import { tag, utils, Events, Store, Tag } from '@storefront/core';
 
-@view('gb-related-queries', require('./index.html'))
-class RelatedQueries extends Component {
+@tag('gb-related-queries', require('./index.html'))
+class RelatedQueries {
 
   state: RelatedQueries.State = {
     relatedQueries: []
   };
 
-  constructor() {
-    super();
+  init() {
     this.expose('relatedQueries');
-
     this.flux.on(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
   }
 
@@ -19,6 +17,7 @@ class RelatedQueries extends Component {
     && this.set({ relatedQueries: utils.mapToSearchActions(relatedQueries, this.flux) })
 }
 
+interface RelatedQueries extends Tag<any, RelatedQueries.State> { }
 namespace RelatedQueries {
   export interface State {
     relatedQueries: Store.Linkable[];
