@@ -1,4 +1,4 @@
-import { utils, Component, Events } from '@storefront/core';
+import { utils, Events } from '@storefront/core';
 import RelatedQueries from '../../src/related-queries';
 import suite from './_suite';
 

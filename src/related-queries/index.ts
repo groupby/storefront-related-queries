@@ -1,5 +1,6 @@
-import { tag, utils, Events, Store, Tag } from '@storefront/core';
+import { alias, tag, utils, Events, Store, Tag } from '@storefront/core';
 
+@alias('relatedQueries')
 @tag('gb-related-queries', require('./index.html'))
 class RelatedQueries {
 
@@ -8,7 +9,6 @@ class RelatedQueries {
   };
 
   init() {
-    this.expose('relatedQueries');
     this.flux.on(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
   }
 
