@@ -14,15 +14,6 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
   });
 
   describe('init()', () => {
-    it('should call expose()', () => {
-      const expose = relatedQueries.expose = spy();
-      relatedQueries.flux = <any>{ on: () => null };
-
-      relatedQueries.init();
-
-      expect(expose.calledWith('relatedQueries')).to.be.true;
-    });
-
     it('should listen for RELATED_QUERIES_UPDATED', () => {
       const on = spy();
       relatedQueries.flux = <any>{ on };
