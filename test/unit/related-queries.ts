@@ -21,7 +21,7 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
 
       relatedQueries.init();
 
-      expect(on.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries)).to.be.true;
+      expect(on).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
     });
   });
 
@@ -36,8 +36,8 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
 
       relatedQueries.updateRelatedQueries(related);
 
-      expect(set.calledWith({ relatedQueries: searchActions })).to.be.true;
-      expect(mapToSearchActions.calledWith(related, flux)).to.be.true;
+      expect(set).to.be.calledWith({ relatedQueries: searchActions });
+      expect(mapToSearchActions).to.be.calledWith(related, flux);
     });
 
     it('should not set relatedQueries if both empty', () => {
