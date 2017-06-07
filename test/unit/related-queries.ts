@@ -9,7 +9,9 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
 
   describe('constructor()', () => {
     describe('state', () => {
-      it('should set initial relatedQueries');
+      it('should set initial value', () => {
+        expect(relatedQueries.state).to.eql({ relatedQueries: [] });
+      });
     });
   });
 
