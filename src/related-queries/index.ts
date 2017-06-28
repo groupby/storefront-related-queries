@@ -12,15 +12,15 @@ class RelatedQueries {
     this.flux.on(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
   }
 
-  updateRelatedQueries = (relatedQueries: Store.Linkable[]) =>
+  updateRelatedQueries = (relatedQueries: string[]) =>
     !(relatedQueries.length === 0 && this.state.relatedQueries.length === 0)
-    && this.set({ relatedQueries: utils.mapToSearchActions(relatedQueries, this.flux) })
+    && this.set({ relatedQueries: utils.mapToSearchActions(relatedQueries, <any>this.actions) })
 }
 
 interface RelatedQueries extends Tag<any, RelatedQueries.State> { }
 namespace RelatedQueries {
   export interface State {
-    relatedQueries: Store.Linkable[];
+    relatedQueries: Array<{ value: string, onClick: () => void }>;
   }
 }
 

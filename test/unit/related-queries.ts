@@ -31,7 +31,7 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
     it('should set relatedQueries', () => {
       const related: any[] = ['a', 'b'];
       const searchActions = ['c', 'd'];
-      const flux = relatedQueries.flux = <any>{ e: 'f' };
+      const actions = relatedQueries.actions = <any>{ e: 'f' };
       const set = relatedQueries.set = spy();
       const mapToSearchActions = stub(utils, 'mapToSearchActions').returns(searchActions);
       relatedQueries.state = <any>{ relatedQueries: [] };
@@ -39,7 +39,7 @@ suite('RelatedQueries', ({ expect, spy, stub }) => {
       relatedQueries.updateRelatedQueries(related);
 
       expect(set).to.be.calledWith({ relatedQueries: searchActions });
-      expect(mapToSearchActions).to.be.calledWith(related, flux);
+      expect(mapToSearchActions).to.be.calledWith(related, actions);
     });
 
     it('should not set relatedQueries if both empty', () => {
