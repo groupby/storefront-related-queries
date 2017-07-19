@@ -2,10 +2,13 @@ import { utils, Events } from '@storefront/core';
 import RelatedQueries from '../../src/related-queries';
 import suite from './_suite';
 
-suite('RelatedQueries', ({ expect, spy, stub }) => {
+suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias }) => {
   let relatedQueries: RelatedQueries;
 
   beforeEach(() => relatedQueries = new RelatedQueries());
+
+  itShouldBeConfigurable(RelatedQueries);
+  itShouldHaveAlias(RelatedQueries, 'relatedQueries');
 
   describe('constructor()', () => {
     describe('state', () => {

@@ -1,5 +1,6 @@
-import { alias, tag, utils, Events, Store, Tag } from '@storefront/core';
+import { alias, configurable, tag, utils, Events, Store, Tag } from '@storefront/core';
 
+@configurable
 @alias('relatedQueries')
 @tag('gb-related-queries', require('./index.html'))
 class RelatedQueries {
