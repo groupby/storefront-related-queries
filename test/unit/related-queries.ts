@@ -1,4 +1,4 @@
-import { utils, Events } from '@storefront/core';
+import { utils, Events, Selectors } from '@storefront/core';
 import RelatedQueries from '../../src/related-queries';
 import suite from './_suite';
 
@@ -22,11 +22,27 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
     it('should listen for RELATED_QUERIES_UPDATED', () => {
       const on = spy();
       relatedQueries.flux = <any>{ on };
+      relatedQueries.select = spy();
+      relatedQueries.updateRelatedQueries = spy();
       relatedQueries.expose = () => null;
 
       relatedQueries.init();
 
       expect(on).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
+    });
+
+    it('should call updateRelatedQueries', () => {
+      const queries = [1, 2, 3];
+      const select = relatedQueries.select = stub();
+      select.withArgs(Selectors.relatedQueries).returns(queries);
+      const updateRelatedQueries = relatedQueries.updateRelatedQueries = spy();
+      relatedQueries.flux = <any>{ on: spy() };
+      relatedQueries.expose = () => null;
+
+      relatedQueries.init();
+
+      expect(select).to.be.calledWithExactly(Selectors.relatedQueries);
+      expect(updateRelatedQueries).to.be.calledWithExactly(queries);
     });
   });
 
