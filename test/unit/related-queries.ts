@@ -22,8 +22,8 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
     it('should listen for RELATED_QUERIES_UPDATED', () => {
       const on = spy();
       relatedQueries.flux = <any>{ on };
-      relatedQueries.select = spy();
-      relatedQueries.updateRelatedQueries = spy();
+      relatedQueries.select = () => null;
+      relatedQueries.updateRelatedQueries = () => null;
       relatedQueries.expose = () => null;
 
       relatedQueries.init();
@@ -36,7 +36,7 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
       const select = relatedQueries.select = stub();
       select.withArgs(Selectors.relatedQueries).returns(queries);
       const updateRelatedQueries = relatedQueries.updateRelatedQueries = spy();
-      relatedQueries.flux = <any>{ on: spy() };
+      relatedQueries.flux = <any>{ on: () => null };
       relatedQueries.expose = () => null;
 
       relatedQueries.init();
