@@ -1,4 +1,4 @@
-import { alias, configurable, tag, utils, Events, Store, Tag } from '@storefront/core';
+import { alias, configurable, tag, utils, Events, Selectors, Store, Tag } from '@storefront/core';
 
 @configurable
 @alias('relatedQueries')
@@ -10,6 +10,7 @@ class RelatedQueries {
   };
 
   init() {
+    this.updateRelatedQueries(this.select(Selectors.relatedQueries));
     this.flux.on(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
   }
 
