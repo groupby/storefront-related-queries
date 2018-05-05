@@ -20,23 +20,22 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
 
   describe('init()', () => {
     it('should listen for RELATED_QUERIES_UPDATED', () => {
-      const on = spy();
-      relatedQueries.flux = <any>{ on };
+      const subscribe = relatedQueries.subscribe = spy();
       relatedQueries.select = () => null;
       relatedQueries.updateRelatedQueries = () => null;
       relatedQueries.expose = () => null;
 
       relatedQueries.init();
 
-      expect(on).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
+      expect(subscribe).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
     });
 
     it('should call updateRelatedQueries', () => {
       const queries = [1, 2, 3];
       const select = relatedQueries.select = stub();
-      select.withArgs(Selectors.relatedQueries).returns(queries);
       const updateRelatedQueries = relatedQueries.updateRelatedQueries = spy();
-      relatedQueries.flux = <any>{ on: () => null };
+      relatedQueries.subscribe = () => null;
+      select.withArgs(Selectors.relatedQueries).returns(queries);
       relatedQueries.expose = () => null;
 
       relatedQueries.init();

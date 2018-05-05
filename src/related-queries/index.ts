@@ -11,7 +11,7 @@ class RelatedQueries {
 
   init() {
     this.updateRelatedQueries(this.select(Selectors.relatedQueries));
-    this.flux.on(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
+    this.subscribe(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
   }
 
   updateRelatedQueries = (relatedQueries: string[]) =>
