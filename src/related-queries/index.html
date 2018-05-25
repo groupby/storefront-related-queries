@@ -1,5 +1,5 @@
 <yield>
-  <gb-list items="{ $relatedQueries.relatedQueries }">
-    <gb-link on-click="{ $item.onClick }">{ $item.value }</gb-link>
+  <gb-list items="{ state.relatedQueries }">
+    <gb-link on-click="{ item.onClick }">{ item.value }</gb-link>
   </gb-list>
 </yield>
