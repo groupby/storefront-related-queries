@@ -2,13 +2,13 @@ import { utils, Events, Selectors } from '@storefront/core';
 import RelatedQueries from '../../src/related-queries';
 import suite from './_suite';
 
-suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias }) => {
+suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldProvideAlias }) => {
   let relatedQueries: RelatedQueries;
 
-  beforeEach(() => relatedQueries = new RelatedQueries());
+  beforeEach(() => (relatedQueries = new RelatedQueries()));
 
   itShouldBeConfigurable(RelatedQueries);
-  itShouldHaveAlias(RelatedQueries, 'relatedQueries');
+  itShouldProvideAlias(RelatedQueries, 'relatedQueries');
 
   describe('constructor()', () => {
     describe('state', () => {
@@ -20,25 +20,22 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
 
   describe('init()', () => {
     it('should listen for RELATED_QUERIES_UPDATED', () => {
-      const subscribe = relatedQueries.subscribe = spy();
-      relatedQueries.select = () => null;
-      relatedQueries.updateRelatedQueries = () => null;
-      relatedQueries.expose = () => null;
+      const subscribe = (relatedQueries.subscribe = spy());
 
       relatedQueries.init();
 
       expect(subscribe).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
     });
+  });
 
+  describe('onBeforeMount()', () => {
     it('should call updateRelatedQueries', () => {
       const queries = [1, 2, 3];
-      const select = relatedQueries.select = stub();
-      const updateRelatedQueries = relatedQueries.updateRelatedQueries = spy();
-      relatedQueries.subscribe = () => null;
+      const select = (relatedQueries.select = stub());
+      const updateRelatedQueries = (relatedQueries.updateRelatedQueries = spy());
       select.withArgs(Selectors.relatedQueries).returns(queries);
-      relatedQueries.expose = () => null;
 
-      relatedQueries.init();
+      relatedQueries.onBeforeMount();
 
       expect(select).to.be.calledWithExactly(Selectors.relatedQueries);
       expect(updateRelatedQueries).to.be.calledWithExactly(queries);
@@ -49,8 +46,8 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHa
     it('should set relatedQueries', () => {
       const related: any[] = ['a', 'b'];
       const searchActions = ['c', 'd'];
-      const actions = relatedQueries.actions = <any>{ e: 'f' };
-      const set = relatedQueries.set = spy();
+      const actions = (relatedQueries.actions = <any>{ e: 'f' });
+      const set = (relatedQueries.set = spy());
       const mapToSearchActions = stub(utils, 'mapToSearchActions').returns(searchActions);
       relatedQueries.state = <any>{ relatedQueries: [] };
 
