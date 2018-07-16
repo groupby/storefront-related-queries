@@ -19,24 +19,16 @@ suite('RelatedQueries', ({ expect, spy, stub, itShouldBeConfigurable, itShouldPr
   });
 
   describe('init()', () => {
-    it('should listen for RELATED_QUERIES_UPDATED', () => {
+    it('should listen for RELATED_QUERIES_UPDATED and set initial state', () => {
       const subscribe = (relatedQueries.subscribe = spy());
-
-      relatedQueries.init();
-
-      expect(subscribe).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
-    });
-  });
-
-  describe('onBeforeMount()', () => {
-    it('should call updateRelatedQueries', () => {
       const queries = [1, 2, 3];
       const select = (relatedQueries.select = stub());
       const updateRelatedQueries = (relatedQueries.updateRelatedQueries = spy());
       select.withArgs(Selectors.relatedQueries).returns(queries);
 
-      relatedQueries.onBeforeMount();
+      relatedQueries.init();
 
+      expect(subscribe).to.be.calledWith(Events.RELATED_QUERIES_UPDATED, relatedQueries.updateRelatedQueries);
       expect(select).to.be.calledWithExactly(Selectors.relatedQueries);
       expect(updateRelatedQueries).to.be.calledWithExactly(queries);
     });
