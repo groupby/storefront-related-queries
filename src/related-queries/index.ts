@@ -10,9 +10,7 @@ class RelatedQueries {
 
   init() {
     this.subscribe(Events.RELATED_QUERIES_UPDATED, this.updateRelatedQueries);
-  }
 
-  onBeforeMount() {
     this.updateRelatedQueries(this.select(Selectors.relatedQueries));
   }
 
