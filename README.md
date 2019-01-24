@@ -1,4 +1,10 @@
-# StoreFront related-queries
+# [MOVED] StoreFront related-queries
+
+* * *
+
+**This repository has been moved to <https://github.com/groupby/storefront>.**
+
+* * *
 
 StoreFront `<gb-related-queries>` component
 
